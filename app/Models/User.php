@@ -29,4 +29,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function livros()
+    {
+        return $this->hasMany(Livro::class, 'autor_id');
+    }
+
+    public function livrosAlugados()
+    {  
+        return $this->hasMany(LivroAlugado::class, 'user_id');
+    }
 }

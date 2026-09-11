@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LivroController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LivroAlugadoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,5 +19,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
+Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
+Route::get('/alugueis', [LivroAlugadoController::class, 'index'])->name('alugueis.index');
+
 
 require __DIR__.'/auth.php';
