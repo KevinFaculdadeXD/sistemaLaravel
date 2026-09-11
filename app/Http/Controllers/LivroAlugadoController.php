@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\LivroAlugado;
 
 class LivroAlugadoController extends Controller
 {
-    //
+    public function index()
+    {
+        $alugueis = LivroAlugado::all();
+
+        return view('alugueis.index', compact('alugueis'));
+    }
 }
