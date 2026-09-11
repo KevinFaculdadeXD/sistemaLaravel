@@ -17,11 +17,13 @@ class Livro extends Model
         'autor_id',
     ];
 
+    // O livro pertence a um autor (users.role = 'autor')
     public function autor()
     {
         return $this->belongsTo(User::class, 'autor_id');
     }
 
+    // Um livro pode aparecer em vários registros de aluguel
     public function alugueis()
     {
         return $this->hasMany(LivroAlugado::class, 'livro_id');

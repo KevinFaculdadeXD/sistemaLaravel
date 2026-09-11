@@ -9,7 +9,7 @@ class LivroAlugado extends Model
 {
     use HasFactory;
 
-    protected $table = 'livros_alugados'; // necessário porque o nome não segue o plural padrão do Eloquent
+    protected $table = 'livros_alugados';
 
     protected $fillable = [
         'user_id',
@@ -18,11 +18,13 @@ class LivroAlugado extends Model
         'data_devolucao',
     ];
 
+    // O aluguel pertence a um usuário (leitor)
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // O aluguel pertence a um livro
     public function livro()
     {
         return $this->belongsTo(Livro::class);
