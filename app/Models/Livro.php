@@ -16,6 +16,8 @@ class Livro extends Model
         'data_publicacao',
         'descricao',
         'quantidade_estoque',
+        'autor',
+        'tema_id',
         'autor_id',
     ];
 
