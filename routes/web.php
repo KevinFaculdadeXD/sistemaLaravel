@@ -38,5 +38,10 @@ Route::get('/alugueis', [LivroAlugadoController::class, 'index'])->name('aluguei
 Route::get('/usuarios/login', [UserController::class, 'login'])->name('usuarios.login');
 Route::post('/usuarios/login', [UserController::class, 'authenticate'])->name('usuarios.authenticate');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/usuarios', [UserController::class, 'index'])
+        ->name('usuarios.index');
+
+});
 
 require __DIR__.'/auth.php';

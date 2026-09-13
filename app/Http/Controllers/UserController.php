@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -74,8 +76,9 @@ class UserController extends Controller
         return Redirect::to('/');
     }
 
-    public function index()
-    {
+    public function index(){
+        Gate::authorize('viewAny', User::class);
+
         $usuarios = DB::table('users')->get();
         return view('usuarios.index', compact('usuarios'));
     }

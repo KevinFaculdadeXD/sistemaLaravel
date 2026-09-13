@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
         <container>
-            <a href="/">Home</a>
-            <a href="/alugueis">Aluguéis</a>
-            <a href="/livros">Livros</a>
-            <a href="/usuarios">Usuarios</a>
+                <a href="/">Home</a>
+                <a href="/alugueis">Aluguéis</a>
+                <a href="/livros">Livros</a>
+                <a href="/usuarios">Usuários</a>
+                @can('create', App\Models\Livro::class)
+                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+                @endcan
         </container>
             
 </head>
 <body>
-            
+
 
 <h1>Usuários</h1>
 <a href="{{ route('usuarios.login') }}">Login</a>

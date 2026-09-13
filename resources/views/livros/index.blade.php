@@ -4,10 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros</title>
+            <container>
+                <a href="/">Home</a>
+                <a href="/alugueis">Aluguéis</a>
+                <a href="/livros">Livros</a>
+                <a href="/usuarios">Usuários</a>
+                <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+        </container>
 </head>
 
 <body>
 
+<<<<<<< Updated upstream
     <nav>
         <a href="/">Home</a>
         <a href="/livros">Livros</a>
@@ -17,6 +25,8 @@
         <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
     </nav>
 
+=======
+>>>>>>> Stashed changes
     <h1>Livros Disponíveis</h1>
 
     <ul>

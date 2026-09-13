@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+        <container>
+                <a href="/">Home</a>
+                <a href="/alugueis">Aluguéis</a>
+                <a href="/livros">Livros</a>
+                <a href="/usuarios">Usuários</a>
+                <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+        </container>
 </head>
 
 <body>
