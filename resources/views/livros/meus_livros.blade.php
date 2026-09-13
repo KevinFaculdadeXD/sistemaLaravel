@@ -19,9 +19,9 @@
 
 <ul>
     @foreach ($livros as $livro)
-        <p>Nome: {{$livro->nome}}</p>
+        <p>Nome: {{$livro->titulo}}</p>
         <p>Quantidade: {{$livro->quantidade_estoque}}</p>
-        <a href="{{route('livros.show',livro->id)}}">Ver Detalhes</a>
+        <a href="{{route('livros.show',$livro->id)}}">Ver Detalhes</a>
     @endforeach
 </ul>
     

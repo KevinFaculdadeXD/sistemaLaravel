@@ -1,8 +1,7 @@
-
-<form action="{{route(livros.update), $livro}}" method="POST">
+<form action="{{ route('livros.update', $livro) }}" method="POST">
     @csrf
 
-    include('livros._form')
+      @include('livros._form')
 
     <form action="{{route('livros.destroy' , $livro)}}" method="POST">
         @csrf
