@@ -15,13 +15,8 @@
 <body>
             
 
-<h1>Livros</h1>
+<h1>Home</h1>
 
-<ul>
-    @foreach ($livros as $livro)
-        <li>{{ $livro->titulo }} - Estoque: {{ $livro->quantidade_estoque }}</li>
-    @endforeach
-</ul>
     
 </body>
 </html>
