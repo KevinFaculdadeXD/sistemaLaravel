@@ -14,7 +14,7 @@ return new class extends Migration
             $table->date('data_publicacao');
             $table->text('descricao')->nullable();
             $table->integer('quantidade_estoque')->default(0);
-            $table->foreignId('autor_id')->constrained('users')->onDelete('cascade');
+            $table->string('autor');
             $table->timestamps();
         });
     }
