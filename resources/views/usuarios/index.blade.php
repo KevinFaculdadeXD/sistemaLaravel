@@ -16,7 +16,7 @@
             
 
 <h1>Usuários</h1>
-
+<a href="{{ route('usuarios.login') }}">Login</a>
 <ul>
     @foreach ($usuarios as $usuario)
         <li>{{ $usuario->name }} - {{ $usuario->email }}</li>

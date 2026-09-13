@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
 Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
 Route::get('/alugueis', [LivroAlugadoController::class, 'index'])->name('alugueis.index');
+Route::get('/usuarios/login', [UserController::class, 'login'])->name('usuarios.login');
+Route::post('/usuarios/login', [UserController::class, 'authenticate'])->name('usuarios.authenticate');
 
 
 require __DIR__.'/auth.php';
