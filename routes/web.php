@@ -15,10 +15,20 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+
     Route::resource('/livros', LivroController::class);
 
     Route::get('/meus-livros', [LivroController::class, 'meusLivros'])
         ->name('livros.meus_livros');
+
+    Route::post('/livros/{livro}/alugar', [LivroAlugadoController::class, 'store'])
+        ->name('livros.alugar');
+
+    Route::get('/meus-alugueis', [LivroAlugadoController::class, 'meusAlugueis'])
+    ->name('livros.meus_alugueis');
+
+    Route::post('/alugueis/{aluguel}/devolver', [LivroAlugadoController::class, 'devolver'])
+        ->name('alugueis.devolver');
 });
 
 

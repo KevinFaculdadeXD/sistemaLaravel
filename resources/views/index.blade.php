@@ -6,8 +6,9 @@
     <title>Document</title>
         <container>
                <a href="/">Home</a>
-    <a href="/alugueis">Aluguéis</a>
     <a href="/livros">Livros</a>
+    <a href="{{ route('livros.meus_alugueis') }}">Livros Alugados</a>
+
     <a href="/usuarios">Usuários</a>
     <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
         </container>
