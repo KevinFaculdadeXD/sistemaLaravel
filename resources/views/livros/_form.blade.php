@@ -1,102 +1,105 @@
 {{-- Formulário padrão --}}
 
 {{-- TÍTULO --}}
-<label for="titulo">Título:</label>
-<input
-    type="text"
-    name="titulo"
-    id="titulo"
-    value="{{ old('titulo', $livro->titulo ?? '') }}"
-    required
-    placeholder="Insira o título"
->
-
-@error('titulo')
-    <span>{{ $message }}</span>
-@enderror
-
+<div>
+    <label for="titulo" class="block text-sm font-medium text-gray-700">Título:</label>
+    <input
+        type="text"
+        name="titulo"
+        id="titulo"
+        value="{{ old('titulo', $livro->titulo ?? '') }}"
+        required
+        placeholder="Insira o título"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
+    >
+    @error('titulo')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
 
 {{-- DATA --}}
-<label for="data_publicacao">Data de Publicação:</label>
-
-<input
-    type="date"
-    name="data_publicacao"
-    id="data_publicacao"
-    value="{{ old('data_publicacao', $livro->data_publicacao ?? '') }}"
-    required
->
-
-@error('data_publicacao')
-    <span>{{ $message }}</span>
-@enderror
-
+<div>
+    <label for="data_publicacao" class="block text-sm font-medium text-gray-700">Data de Publicação:</label>
+    <input
+        type="date"
+        name="data_publicacao"
+        id="data_publicacao"
+        value="{{ old('data_publicacao', $livro->data_publicacao ?? '') }}"
+        required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
+    >
+    @error('data_publicacao')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
 
 {{-- AUTOR --}}
-<label for="autor">Autor:</label>
-
-<input
-    type="text"
-    name="autor"
-    id="autor"
-    value="{{ old('autor', $livro->autor ?? '') }}"
-    required
-    placeholder="Insira o nome do autor"
->
-
-@error('autor')
-    <span>{{ $message }}</span>
-@enderror
-
+<div>
+    <label for="autor" class="block text-sm font-medium text-gray-700">Autor:</label>
+    <input
+        type="text"
+        name="autor"
+        id="autor"
+        value="{{ old('autor', $livro->autor ?? '') }}"
+        required
+        placeholder="Insira o nome do autor"
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
+    >
+    @error('autor')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
 
 {{-- QUANTIDADE --}}
-<label for="quantidade_estoque">Quantidade no Estoque:</label>
-
-<input
-    type="number"
-    name="quantidade_estoque"
-    id="quantidade_estoque"
-    value="{{ old('quantidade_estoque', $livro->quantidade_estoque ?? '') }}"
-    required
-    min="1"
-    placeholder="1, 2, 15..."
->
-
-@error('quantidade_estoque')
-    <span>{{ $message }}</span>
-@enderror
-
+<div>
+    <label for="quantidade_estoque" class="block text-sm font-medium text-gray-700">Quantidade no Estoque:</label>
+    <input
+        type="number"
+        name="quantidade_estoque"
+        id="quantidade_estoque"
+        value="{{ old('quantidade_estoque', $livro->quantidade_estoque ?? '') }}"
+        required
+        min="1"
+        placeholder="1, 2, 15..."
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
+    >
+    @error('quantidade_estoque')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
 
 {{-- TEMA --}}
-<label for="tema_id">Tema:</label>
-
-<select name="tema_id" id="tema_id" required>
-    @foreach ($tema as $t)
-        <option
-            value="{{ $t->id }}"
-            @selected(isset($livro) && $livro->tema_id == $t->id)
-        >
-            {{ $t->nome }}
-        </option>
-    @endforeach
-</select>
-
-@error('tema_id')
-    <span>{{ $message }}</span>
-@enderror
-
+<div>
+    <label for="tema_id" class="block text-sm font-medium text-gray-700">Tema:</label>
+    <select name="tema_id" id="tema_id" required
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400">
+        @foreach ($tema as $t)
+            <option
+                value="{{ $t->id }}"
+                @selected(isset($livro) && $livro->tema_id == $t->id)
+            >
+                {{ $t->nome }}
+            </option>
+        @endforeach
+    </select>
+    @error('tema_id')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
 
 {{-- DESCRIÇÃO --}}
-<label for="descricao">Descrição do Livro:</label>
-
-<textarea
-    name="descricao"
-    id="descricao"
-    required
-    maxlength="1500"
-    placeholder="Conte um pouco sobre o livro e o que pode chamar a atenção do leitor..."
->{{ old('descricao', $livro->descricao ?? '') }}</textarea>
-
-@error('descricao')
-    <span>{{ $message }}</span>
-@enderror
+<div>
+    <label for="descricao" class="block text-sm font-medium text-gray-700">Descrição do Livro:</label>
+    <textarea
+        name="descricao"
+        id="descricao"
+        required
+        maxlength="1500"
+        rows="4"
+        placeholder="Conte um pouco sobre o livro e o que pode chamar a atenção do leitor..."
+        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-400 focus:ring-indigo-400"
+    >{{ old('descricao', $livro->descricao ?? '') }}</textarea>
+    @error('descricao')
+        <span class="text-sm text-red-600">{{ $message }}</span>
+    @enderror
+</div>
