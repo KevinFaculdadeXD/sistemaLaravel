@@ -12,6 +12,9 @@
                 @can('create', App\Models\Livro::class)
                     <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
                 @endcan
+                <form action="{{ route('usuarios.logout') }}" method="POST">
+                @csrf
+                <button type="submit">Sair da conta</button>    </form>
         </container>
             
 </head>

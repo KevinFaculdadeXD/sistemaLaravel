@@ -8,7 +8,9 @@
                 <a href="/alugueis">Aluguéis</a>
                 <a href="/livros">Livros</a>
                 <a href="/usuarios">Usuários</a>
-                <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+                <form action="{{ route('usuarios.logout') }}" method="POST">
+                @csrf
+                <button type="submit">Sair da conta</button>    </form>
         </container>
 </head>
 
@@ -16,7 +18,7 @@
 
     <h1>Login</h1>
 
-    <form action="{{ route('usuarios.authenticate') }}" method="POST">
+    <form action="{{ route('authenticate') }}" method="POST">
 
         @csrf
 

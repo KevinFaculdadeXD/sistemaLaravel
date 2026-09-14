@@ -6,6 +6,8 @@ use App\Http\Requests\LivroRequest;
 use App\Models\Livro;
 use App\Models\Tema;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class LivroController extends Controller
 {
@@ -18,8 +20,9 @@ class LivroController extends Controller
 
     public function create()
     {
+        Gate::authorize('create', Livro::class);
         $tema = Tema::all();
-        return view(('livros.create') , compact('tema'));
+        return view('livros.create', compact('tema'));
     }
 
     public function store(LivroRequest $request){
@@ -28,7 +31,7 @@ class LivroController extends Controller
 
         $livro = new Livro($dados);
 
-        $livro->user_id = auth()->id();
+        $livro->user_id = Auth::id();
 
         $livro -> save();
         
@@ -41,32 +44,31 @@ class LivroController extends Controller
     }
     
     public function edit(Livro $livro){
-        $tema = Tema::all();
-        return view('livros.edit', compact('livro','tema'));
-    }
+    Gate::authorize('update', $livro);
+    $tema = Tema::all();
+    return view('livros.edit', compact('livro', 'tema'));
+}
 
     public function update(LivroRequest $request, Livro $livro)
     {
-
+        Gate::authorize('update', $livro);
         $dados = $request->validated();
-
         $livro->update($dados);
-
         return redirect()->route('livros.meus_livros')
-        ->with('success', 'Livro Alterado');
-
+            ->with('success', 'Livro Alterado');
     }
 
-    public function destroy(Livro $livro){
-
+    public function destroy(Livro $livro)
+    {
+        Gate::authorize('delete', $livro);
         $livro->delete();
         return redirect()->route('livros.meus_livros')
-        ->with('success', 'Livro Deletado');
+            ->with('success', 'Livro Deletado');
     }
 
     public function meusLivros()
     {
-        $livros = Livro::where('user_id', auth()->id())->get();
+        $livros = Livro::where('user_id', Auth::id())->get();
 
         return view('livros.meus_livros', compact('livros'));
     }

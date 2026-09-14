@@ -50,7 +50,7 @@ class User extends Authenticatable
     // Um autor possui vários livros
     public function livros()
     {
-        return $this->hasMany(Livro::class, 'autor_id');
+        return $this->hasMany(Livro::class, 'user_id');
     }
 
     // Um leitor realiza vários aluguéis

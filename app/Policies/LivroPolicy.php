@@ -8,19 +8,25 @@ use App\Models\User;
 
 class LivroPolicy
 {
-    public function view(){
+    public function view(User $user, Livro $livro): bool
+    {
         return true;
     }
 
-    public function create($user){
+    public function create(User $user): bool
+    {
         return $user->role === UserRole::AUTOR;
     }
 
-    public function update($user, Livro $livro): bool {
-        return $user->role === UserRole::AUTOR && $user->id === $livro->user_id;
+    public function update(User $user, Livro $livro): bool
+    {
+        return $user->role === UserRole::AUTOR
+            && $user->id === $livro->user_id;
     }
 
-    public function delete($user, Livro $livro): bool {
-        return $user->role === UserRole::AUTOR && $user->id === $livro->user_id;
+    public function delete(User $user, Livro $livro): bool
+    {
+        return $user->role === UserRole::AUTOR
+            && $user->id === $livro->user_id;
     }
 }

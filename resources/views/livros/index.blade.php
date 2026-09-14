@@ -4,29 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Livros</title>
-            <container>
+        <container>
                 <a href="/">Home</a>
                 <a href="/alugueis">Aluguéis</a>
                 <a href="/livros">Livros</a>
                 <a href="/usuarios">Usuários</a>
-                <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+                @can('create', App\Models\Livro::class)
+                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
+                @endcan
+                <form action="{{ route('usuarios.logout') }}" method="POST">
+                @csrf
+                <button type="submit">Sair da conta</button>    </form>
         </container>
 </head>
 
 <body>
-
-<<<<<<< Updated upstream
-    <nav>
-        <a href="/">Home</a>
-        <a href="/livros">Livros</a>
-        <a href="{{ route('livros.meus_alugueis') }}">Livros Alugados</a>
-        <a href="/usuarios">Usuários</a>
-
-        <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
-    </nav>
-
-=======
->>>>>>> Stashed changes
     <h1>Livros Disponíveis</h1>
 
     <ul>

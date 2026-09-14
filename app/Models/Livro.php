@@ -18,7 +18,6 @@ class Livro extends Model
         'quantidade_estoque',
         'autor',
         'tema_id',
-        'autor_id',
     ];
 
     // lIgação entre o tema e o livro sendo tema 1 - N  Livro
@@ -31,5 +30,10 @@ class Livro extends Model
     public function alugueis() : HasMany
     {
         return $this->hasMany(LivroAlugado::class, 'livro_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

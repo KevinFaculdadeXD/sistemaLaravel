@@ -29,15 +29,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/alugueis/{aluguel}/devolver', [LivroAlugadoController::class, 'devolver'])
         ->name('alugueis.devolver');
+
+    Route::get('/alugueis', [LivroAlugadoController::class, 'index'])->name('alugueis.index');
+
+    Route::post('/usuarios/logout', [UserController::class, 'logout'])->name('usuarios.logout');
 });
 
-
-Route::get('/livros', [LivroController::class, 'index'])->name('livros.index');
-Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
-Route::get('/alugueis', [LivroAlugadoController::class, 'index'])->name('alugueis.index');
-Route::get('/usuarios/login', [UserController::class, 'login'])->name('usuarios.login');
-Route::post('/usuarios/login', [UserController::class, 'authenticate'])->name('usuarios.authenticate');
-
+Route::get('/usuarios/login', [UserController::class, 'login'])->name('login');
+Route::post('/usuarios/login', [UserController::class, 'authenticate'])->name('authenticate');
 Route::middleware('auth')->group(function () {
     Route::get('/usuarios', [UserController::class, 'index'])
         ->name('usuarios.index');

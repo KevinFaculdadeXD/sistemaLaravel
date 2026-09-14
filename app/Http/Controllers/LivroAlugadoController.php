@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Livro;
 use App\Models\LivroAlugado;
+use Illuminate\Support\Facades\Auth;
 
 class LivroAlugadoController extends Controller
 {
     public function index()
     {
-        $alugueis = LivroAlugado::all();
+        $alugueis = LivroAlugado::where('user_id', Auth::id())->get();
 
         return view('alugueis.index', compact('alugueis'));
     }
@@ -20,18 +21,17 @@ class LivroAlugadoController extends Controller
             return back()->with('error', 'Livro sem estoque.');
         }
 
-        $aluguelExistente = LivroAlugado::where('user_id', auth()->id())
+        $aluguelExistente = LivroAlugado::where('user_id', Auth::id())
             ->where('livro_id', $livro->id)
             ->whereNull('data_devolucao')
             ->exists();
 
         if ($aluguelExistente) {
-            return redirect()->route('livros.meus_alugueis')
-            ->with('success', 'Livro alugado com sucesso!');
+            return back()->with('error', 'Você já possui este livro alugado.');
         }
 
         LivroAlugado::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'livro_id' => $livro->id,
             'data_aluguel' => now()->toDateString(),
         ]);
@@ -44,7 +44,7 @@ class LivroAlugadoController extends Controller
 
             public function meusAlugueis()
         {
-            $alugueis = LivroAlugado::where('user_id', auth()->id())
+            $alugueis = LivroAlugado::where('user_id', Auth::id())
                 ->whereNull('data_devolucao')
                 ->with('livro')
                 ->get();
@@ -54,7 +54,7 @@ class LivroAlugadoController extends Controller
 
         public function devolver(LivroAlugado $aluguel)
         {
-            if ($aluguel->user_id !== auth()->id()) {
+            if ($aluguel->user_id !== Auth::id()) {
                 abort(403);
             }
 
