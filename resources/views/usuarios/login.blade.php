@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="mb-4 text-lg font-semibold text-gray-800">
+    <div class="mb-4 text-lg font-semibold text-ink">
         {{ __('Login') }}
     </div>
 

@@ -14,6 +14,14 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                paper:  '#EFE7D6', // fundo — papel envelhecido
+                ink:    '#2B2419', // texto — tinta escura
+                forest: '#33443A', // navbar, superfícies — verde estante
+                walnut: '#7A4B32', // bordas, divisores — marrom nogueira
+                brass:  '#B08D4F', // destaques, foco — latão
+                garnet: '#7C2D3A', // botões de ação — vermelho couro
+            },
         },
     },
 

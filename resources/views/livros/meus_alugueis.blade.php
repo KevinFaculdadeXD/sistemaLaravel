@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-ink leading-tight">
             {{ __('Meus Livros Alugados') }}
         </h2>
     </x-slot>
@@ -20,26 +20,26 @@
                 </div>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+            <div class="bg-paper overflow-hidden shadow-sm border border-walnut/20 sm:rounded-lg p-6">
                 @if($alugueis->isEmpty())
-                    <p class="text-gray-500">{{ __('Você não possui livros alugados.') }}</p>
+                    <p class="text-ink/60">{{ __('Você não possui livros alugados.') }}</p>
                 @else
-                    <div class="divide-y divide-gray-200">
+                    <div class="divide-y divide-walnut/30">
                         @foreach($alugueis as $aluguel)
                             <div class="py-4 flex items-center justify-between">
                                 <div>
-                                    <h3 class="font-semibold text-gray-800">{{ $aluguel->livro->titulo }}</h3>
-                                    <p class="text-sm text-gray-500">
+                                    <h3 class="font-semibold text-ink">{{ $aluguel->livro->titulo }}</h3>
+                                    <p class="text-sm text-ink/60">
                                         <span class="font-medium">{{ __('Autor') }}:</span> {{ $aluguel->livro->autor }}
                                     </p>
-                                    <p class="text-sm text-gray-500">
+                                    <p class="text-sm text-ink/60">
                                         <span class="font-medium">{{ __('Data do aluguel') }}:</span> {{ $aluguel->data_aluguel }}
                                     </p>
                                 </div>
 
                                 <div class="flex items-center gap-4">
                                     <a href="{{ route('livros.show', $aluguel->livro) }}"
-                                       class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                                       class="text-sm font-medium text-garnet hover:text-garnet/70">
                                         {{ __('Ver Livro') }}
                                     </a>
 

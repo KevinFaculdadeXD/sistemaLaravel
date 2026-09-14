@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-ink leading-tight">
             {{ $livro->titulo }}
         </h2>
     </x-slot>
@@ -20,17 +20,17 @@
                 </div>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 space-y-3">
-                <p class="text-sm text-gray-500">
-                    {{ __('Tema') }}: <span class="font-medium text-gray-800">{{ $livro->tema->nome }}</span>
+            <div class="bg-paper overflow-hidden shadow-sm border border-walnut/20 sm:rounded-lg p-6 space-y-3">
+                <p class="text-sm text-ink/60">
+                    {{ __('Tema') }}: <span class="font-medium text-ink">{{ $livro->tema->nome }}</span>
                 </p>
-                <p class="text-sm text-gray-500">
-                    {{ __('Autor') }}: <span class="font-medium text-gray-800">{{ $livro->autor }}</span>
+                <p class="text-sm text-ink/60">
+                    {{ __('Autor') }}: <span class="font-medium text-ink">{{ $livro->autor }}</span>
                 </p>
-                <p class="text-sm text-gray-500">
-                    {{ __('Quantidade em estoque') }}: <span class="font-medium text-gray-800">{{ $livro->quantidade_estoque }}</span>
+                <p class="text-sm text-ink/60">
+                    {{ __('Quantidade em estoque') }}: <span class="font-medium text-ink">{{ $livro->quantidade_estoque }}</span>
                 </p>
-                <p class="text-gray-700 pt-2">{{ $livro->descricao }}</p>
+                <p class="text-ink/80 pt-2">{{ $livro->descricao }}</p>
 
                 <div class="flex items-center gap-4 pt-4">
                     @if($livro->quantidade_estoque > 0)
@@ -46,7 +46,7 @@
 
                     @can('update', $livro)
                         <a href="{{ route('livros.edit', $livro) }}"
-                           class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                           class="text-sm font-medium text-garnet hover:text-garnet/70">
                             {{ __('Editar Livro') }}
                         </a>
                     @endcan
