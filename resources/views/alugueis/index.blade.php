@@ -1,30 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-            <container>
-                <a href="/">Home</a>
-                <a href="/alugueis">Aluguéis</a>
-                <a href="/livros">Livros</a>
-                <a href="/usuarios">Usuários</a>
-                @can('create', App\Models\Livro::class)
-                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
-                @endcan
-                <form action="{{ route('usuarios.logout') }}" method="POST">
-                @csrf
-                <button type="submit">Sair da conta</button>    </form>
-        </container>
-</head>
-<body>
-<h1>Aluguéis</h1>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Aluguéis') }}
+        </h2>
+    </x-slot>
 
-<ul>
-    @foreach ($alugueis as $aluguel)
-        <li>Livro ID {{ $aluguel->livro_id }} - alugado em {{ $aluguel->data_aluguel }}</li>
-    @endforeach
-</ul>
-    
-</body>
-</html>
+    <div class="py-12">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+
+                @if ($alugueis->isEmpty())
+                    <p class="text-gray-500">{{ __('Nenhum aluguel encontrado.') }}</p>
+                @else
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead>
+                                <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th class="py-2 pr-4">{{ __('Livro') }}</th>
+                                    <th class="py-2 pr-4">{{ __('Data do aluguel') }}</th>
+                                    <th class="py-2 pr-4">{{ __('Status') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach ($alugueis as $aluguel)
+                                    <tr>
+                                        <td class="py-2 pr-4 text-gray-800">{{ $aluguel->livro->titulo ?? '—' }}</td>
+                                        <td class="py-2 pr-4 text-gray-500">{{ $aluguel->data_aluguel }}</td>
+                                        <td class="py-2 pr-4">
+                                            @if ($aluguel->data_devolucao)
+                                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">
+                                                    {{ __('Devolvido em') }} {{ $aluguel->data_devolucao }}
+                                                </span>
+                                            @else
+                                                <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-700">
+                                                    {{ __('Em aberto') }}
+                                                </span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>

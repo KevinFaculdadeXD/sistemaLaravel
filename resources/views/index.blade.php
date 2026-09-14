@@ -21,11 +21,14 @@
                         {{ config('app.name', 'Laravel') }}
                     </a>
  
-                    <a href="/livros" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Livros</a>
-                    <a href="/alugueis" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Aluguéis</a>
-                    <a href="/usuarios" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Usuários</a>
- 
                     @auth
+                        <a href="{{ route('livros.index') }}" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Livros</a>
+                        <a href="{{ route('alugueis.index') }}" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Aluguéis</a>
+
+                        @can('viewAny', App\Models\User::class)
+                            <a href="{{ route('usuarios.index') }}" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">Usuários</a>
+                        @endcan
+
                         @can('create', App\Models\Livro::class)
                             <a href="{{ route('livros.create') }}" class="text-sm font-medium text-gray-500 hover:text-gray-800 transition">
                                 Cadastrar Livro
@@ -91,4 +94,3 @@
  
 </body>
 </html>
- 

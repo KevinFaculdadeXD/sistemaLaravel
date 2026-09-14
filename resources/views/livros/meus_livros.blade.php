@@ -1,35 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <container>
-                <a href="/">Home</a>
-                <a href="/alugueis">Aluguéis</a>
-                <a href="/livros">Livros</a>
-                <a href="/usuarios">Usuários</a>
-                @can('create', App\Models\Livro::class)
-                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
-                @endcan
-                <form action="{{ route('usuarios.logout') }}" method="POST">
-                @csrf
-                <button type="submit">Sair da conta</button>    </form>
-        </container>
-            
-</head>
-<body>
-            
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Meus Livros') }}
+        </h2>
+    </x-slot>
 
-<h1>Livros Disponiveis</h1>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
-<ul>
-    @foreach ($livros as $livro)
-        <p>Nome: {{$livro->titulo}}</p>
-        <p>Quantidade: {{$livro->quantidade_estoque}}</p>
-        <a href="{{route('livros.show',$livro->id)}}">Ver Detalhes</a>
-    @endforeach
-</ul>
-    
-</body>
-</html>
+                @if ($livros->isEmpty())
+                    <p class="text-gray-500">{{ __('Você ainda não cadastrou nenhum livro.') }}</p>
+                @else
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ($livros as $livro)
+                            <div class="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition">
+                                <h3 class="font-semibold text-gray-800">{{ $livro->titulo }}</h3>
+                                <p class="text-sm text-gray-500 mt-1">
+                                    {{ __('Quantidade em estoque') }}: {{ $livro->quantidade_estoque }}
+                                </p>
+                                <div class="mt-3 flex items-center gap-3">
+                                    <a href="{{ route('livros.show', $livro->id) }}"
+                                       class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                                        {{ __('Ver Detalhes') }}
+                                    </a>
+                                    <a href="{{ route('livros.edit', $livro) }}"
+                                       class="text-sm font-medium text-gray-600 hover:text-gray-800">
+                                        {{ __('Editar') }}
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>

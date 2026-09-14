@@ -1,46 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-        <container>
-                <a href="/">Home</a>
-                <a href="/alugueis">Aluguéis</a>
-                <a href="/livros">Livros</a>
-                <a href="/usuarios">Usuários</a>
-                <form action="{{ route('usuarios.logout') }}" method="POST">
-                @csrf
-                <button type="submit">Sair da conta</button>    </form>
-        </container>
-</head>
+<x-guest-layout>
+    <div class="mb-4 text-lg font-semibold text-gray-800">
+        {{ __('Login') }}
+    </div>
 
-<body>
+    @if ($errors->any())
+        <div class="mb-4">
+            <x-input-error :messages="$errors->all()" />
+        </div>
+    @endif
 
-    <h1>Login</h1>
-
-    <form action="{{ route('authenticate') }}" method="POST">
-
+    <form method="POST" action="{{ route('authenticate') }}" class="space-y-6">
         @csrf
 
         <div>
-            <label>E-mail:</label>
-            <input type="email" name="email" required>
+            <x-input-label for="email" :value="__('E-mail')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
+                :value="old('email')" required autofocus autocomplete="username" />
         </div>
-
-        <br>
 
         <div>
-            <label>Senha:</label>
-            <input type="password" name="password" required>
+            <x-input-label for="password" :value="__('Senha')" />
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                required autocomplete="current-password" />
         </div>
 
-        <br>
-
-        <button type="submit">
-            Entrar
-        </button>
-
+        <div class="flex items-center justify-end">
+            <x-primary-button>
+                {{ __('Entrar') }}
+            </x-primary-button>
+        </div>
     </form>
-
-</body>
-</html>
+</x-guest-layout>

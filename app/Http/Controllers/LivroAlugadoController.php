@@ -10,7 +10,10 @@ class LivroAlugadoController extends Controller
 {
     public function index()
     {
-        $alugueis = LivroAlugado::where('user_id', Auth::id())->get();
+        $alugueis = LivroAlugado::where('user_id', Auth::id())
+            ->with('livro')
+            ->latest('data_aluguel')
+            ->get();
 
         return view('alugueis.index', compact('alugueis'));
     }
@@ -42,32 +45,32 @@ class LivroAlugadoController extends Controller
         ->with('success', 'Livro alugado com sucesso!');
     }
 
-            public function meusAlugueis()
-        {
-            $alugueis = LivroAlugado::where('user_id', Auth::id())
-                ->whereNull('data_devolucao')
-                ->with('livro')
-                ->get();
+    public function meusAlugueis()
+    {
+        $alugueis = LivroAlugado::where('user_id', Auth::id())
+            ->whereNull('data_devolucao')
+            ->with('livro')
+            ->get();
 
-            return view('livros.meus_alugueis', compact('alugueis'));
+        return view('livros.meus_alugueis', compact('alugueis'));
+    }
+
+    public function devolver(LivroAlugado $aluguel)
+    {
+        if ($aluguel->user_id !== Auth::id()) {
+            abort(403);
         }
 
-        public function devolver(LivroAlugado $aluguel)
-        {
-            if ($aluguel->user_id !== Auth::id()) {
-                abort(403);
-            }
-
-            if ($aluguel->data_devolucao !== null) {
-                return back()->with('error', 'Este livro já foi devolvido.');
-            }
-
-            $aluguel->update([
-                'data_devolucao' => now()->toDateString(),
-            ]);
-
-            $aluguel->livro->increment('quantidade_estoque');
-
-            return back()->with('success', 'Livro devolvido com sucesso!');
+        if ($aluguel->data_devolucao !== null) {
+            return back()->with('error', 'Este livro já foi devolvido.');
         }
+
+        $aluguel->update([
+            'data_devolucao' => now()->toDateString(),
+        ]);
+
+        $aluguel->livro->increment('quantidade_estoque');
+
+        return back()->with('success', 'Livro devolvido com sucesso!');
+    }
 }

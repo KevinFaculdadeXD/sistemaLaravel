@@ -1,33 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-        <container>
-                <a href="/">Home</a>
-                <a href="/alugueis">Aluguéis</a>
-                <a href="/livros">Livros</a>
-                <a href="/usuarios">Usuários</a>
-                @can('create', App\Models\Livro::class)
-                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
-                @endcan
-                <form action="{{ route('usuarios.logout') }}" method="POST">
-                @csrf
-                <button type="submit">Sair da conta</button>    </form>
-        </container>
-            
-</head>
-<body>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Usuários') }}
+        </h2>
+    </x-slot>
 
+    <div class="py-12">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
-<h1>Usuários</h1>
-<a href="{{ route('usuarios.login') }}">Login</a>
-<ul>
-    @foreach ($usuarios as $usuario)
-        <li>{{ $usuario->name }} - {{ $usuario->email }}</li>
-    @endforeach
-</ul>
-    
-</body>
-</html>
+                @if ($usuarios->isEmpty())
+                    <p class="text-gray-500">{{ __('Nenhum usuário encontrado.') }}</p>
+                @else
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 text-sm">
+                            <thead>
+                                <tr class="text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th class="py-2 pr-4">{{ __('Nome') }}</th>
+                                    <th class="py-2 pr-4">{{ __('E-mail') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                @foreach ($usuarios as $usuario)
+                                    <tr>
+                                        <td class="py-2 pr-4 text-gray-800">{{ $usuario->name }}</td>
+                                        <td class="py-2 pr-4 text-gray-500">{{ $usuario->email }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+
+            </div>
+        </div>
+    </div>
+</x-app-layout>

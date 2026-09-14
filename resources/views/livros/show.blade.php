@@ -1,46 +1,58 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ $livro->titulo }}
+        </h2>
+    </x-slot>
 
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8 space-y-4">
 
-    @if(session('error'))
-        <p>{{ session('error') }}</p>
-    @endif
+            @if(session('success'))
+                <div class="bg-green-50 border border-green-200 text-green-700 text-sm rounded-md p-4">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-<h1>{{ $livro->titulo }}</h1>
+            @if(session('error'))
+                <div class="bg-red-50 border border-red-200 text-red-700 text-sm rounded-md p-4">
+                    {{ session('error') }}
+                </div>
+            @endif
 
-<h2>Tema: {{ $livro->tema->nome }}</h2>
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 space-y-3">
+                <p class="text-sm text-gray-500">
+                    {{ __('Tema') }}: <span class="font-medium text-gray-800">{{ $livro->tema->nome }}</span>
+                </p>
+                <p class="text-sm text-gray-500">
+                    {{ __('Autor') }}: <span class="font-medium text-gray-800">{{ $livro->autor }}</span>
+                </p>
+                <p class="text-sm text-gray-500">
+                    {{ __('Quantidade em estoque') }}: <span class="font-medium text-gray-800">{{ $livro->quantidade_estoque }}</span>
+                </p>
+                <p class="text-gray-700 pt-2">{{ $livro->descricao }}</p>
 
-<h3>Quantidade: {{ $livro->quantidade_estoque }}</h3>
+                <div class="flex items-center gap-4 pt-4">
+                    @if($livro->quantidade_estoque > 0)
+                        <form action="{{ route('livros.alugar', $livro) }}" method="POST">
+                            @csrf
+                            <x-primary-button>
+                                {{ __('Alugar Livro') }}
+                            </x-primary-button>
+                        </form>
+                    @else
+                        <p class="text-sm text-red-600">{{ __('Livro indisponível para aluguel.') }}</p>
+                    @endif
 
-<h3>Autor: {{ $livro->autor }}</h3>
+                    @can('update', $livro)
+                        <a href="{{ route('livros.edit', $livro) }}"
+                           class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                            {{ __('Editar Livro') }}
+                        </a>
+                    @endcan
+                </div>
+            </div>
 
-<p>Descrição do Livro: {{ $livro->descricao }}</p>
-
-
-{{-- ALUGAR LIVRO --}}
-@if($livro->quantidade_estoque > 0)
-
-    <form action="{{ route('livros.alugar', $livro) }}" method="POST">
-        @csrf
-
-        <button type="submit">
-            Alugar Livro
-        </button>
-    </form>
-
-@else
-
-    <p>Livro indisponível para aluguel.</p>
-
-@endif
-
-
-{{-- EDITAR --}}
-@can('update', $livro)
-
-    <a href="{{ route('livros.edit', $livro) }}">
-        Editar Livro
-    </a>
-
-@endcan
+        </div>
+    </div>
+</x-app-layout>

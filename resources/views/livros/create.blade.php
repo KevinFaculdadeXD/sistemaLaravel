@@ -1,22 +1,25 @@
-        <container>
-                <a href="/">Home</a>
-                <a href="/alugueis">Aluguéis</a>
-                <a href="/livros">Livros</a>
-                <a href="/usuarios">Usuários</a>
-                @can('create', App\Models\Livro::class)
-                    <a href="{{ route('livros.create') }}">Cadastrar Livro</a>
-                @endcan
-                <form action="{{ route('usuarios.logout') }}" method="POST">
-                @csrf
-                <button type="submit">Sair da conta</button>    </form>
-        </container>
-<h1>Publicando Livro</h1>
-    
-<form action="{{ route('livros.store') }}" method="POST">
-    @csrf
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Publicar Livro') }}
+        </h2>
+    </x-slot>
 
-    @include('livros._form')
+    <div class="py-12">
+        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <form action="{{ route('livros.store') }}" method="POST" class="space-y-6">
+                    @csrf
 
-    <button type="submit">Publicar Livros</button>
-    
-</form>
+                    @include('livros._form')
+
+                    <div>
+                        <x-primary-button>
+                            {{ __('Publicar Livro') }}
+                        </x-primary-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
